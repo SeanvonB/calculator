@@ -2,3 +2,61 @@
 	margin: 0;
 	padding: 0;
 }
+
+body {
+	align-items: center;
+	display: flex;
+	flex-direction: column;
+	height: 100vh;
+	justify-content: space-evenly;
+	max-width: 100%;
+	width: 100vw;
+}
+
+button {
+	height: calc(20% - 10px);
+	margin: 5px;
+	width: calc(33.33% - 10px);
+}
+
+.calculator {
+	align-items: center;
+	display: flex;
+	flex-wrap: wrap;
+	height: calc(80% - 20px);
+	margin: 10px;
+	max-height: 750px;
+	max-width: 500px;
+	width: calc(100% - 20px);
+}
+
+.display {
+	border: 1px solid black;
+	height: calc(25% - 10px);
+	margin: 5px;
+	width: calc(100% - 10px);
+}
+
+.keypad {
+	display: flex;
+	flex-wrap: wrap;
+	height: 75%;
+	width: 75%;
+}
+
+.operators {
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	height: 75%;
+	width: 25%;
+}
+
+.operators button {
+	height: calc(20% - 10px);
+	width: calc(100% - 10px);
+}
+
+.operators button:last-child {
+	height: calc(40% - 10px);
+}
