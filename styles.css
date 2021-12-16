@@ -30,10 +30,17 @@ button {
 	width: calc(100% - 20px);
 }
 
+.current,
+.running {
+	font-size: 36px;
+	height: 50%;
+}
+
 .display {
 	border: 1px solid black;
 	height: calc(25% - 10px);
 	margin: 5px;
+	text-align: right;
 	width: calc(100% - 10px);
 }
 
