@@ -23,97 +23,120 @@ function allClear() {
 	resetReady = false;
 }
 
-// Use global values to operate and return result
+// Use global values to operate and return rounded result
 function operate(a = previousValue, op = currentOperator, b = currentValue) {
-	// Exit without operation if b is an empty string
 	if (b === "") return a;
 
-	// Convert numeric strings to number
 	a = Number(a);
 	b = Number(b);
 
-	// Use operator to determine operation
 	switch (op) {
 		case "÷":
 			if (b === 0) {
-				return "ERROR";
+				return "ZeroDivisionError";
 			} else {
-				return a / b;
+				return roundNumber(a / b);
 			}
 		case "×":
-			return a * b;
+			return roundNumber(a * b);
 		case "−":
-			return a - b;
+			return roundNumber(a - b);
 		case "+":
-			return a + b;
+			return roundNumber(a + b);
 		default:
 			return a;
 	}
 }
 
-// Update displayCurrent and CurrentValue with button input
+// Delete most recent number input
+function deleteNumber() {
+	currentValue = currentValue.slice(0, -1);
+	displayCurrent.textContent = currentValue;
+}
+
+// Round number to 3 decimal places
+function roundNumber(number) {
+	return Math.round((number + Number.EPSILON) * 1000) / 1000;
+}
+
+// Switch positive to negative and vice versa
+function switchSign() {
+	if (currentValue === "") currentValue += "0";
+	if (currentValue.slice(0, 1) === "-") {
+		currentValue = currentValue.slice(1);
+	} else currentValue = `-${currentValue}`;
+
+	displayCurrent.textContent = currentValue;
+}
+
+// Update currentValue
 function updateNumber(number) {
-	// Reset on new input if following total
+	// Reset on new input if preceded by updateTotal
 	if (resetReady) allClear();
+
+	if (currentValue === "0") currentValue = "";
+	if (currentValue === "-0") currentValue = "-";
+	if (number === ".") {
+		if (currentValue.includes(".")) return;
+		if (currentValue === "") currentValue += "0";
+	}
 
 	currentValue += number;
 	displayCurrent.textContent = currentValue;
 }
 
-// Update currentOperator then operate on subsequent updates
+// Update currentOperator, call operate(), and update state
 function updateOperator(operator) {
-	// Clear reset flag if following total
+	// Clear reset flag if preceded by updateTotal
 	if (resetReady) resetReady = false;
 
-	// Do nothing unless a value has been staged
 	if (currentValue || previousValue) {
-		// Evaluate on subsequent calls and re-cast as strings
+		// Operate on subsequent calls
 		if (currentOperator) currentValue = String(operate());
-
-		// Handle division by zero error by resetting
-		if (currentValue === "ERROR") {
+		if (currentValue === "ZeroDivisionError") {
 			allClear();
-		} else {
-			// Update global and displayed variables
-			previousValue = currentValue;
-			currentOperator = operator;
-			displayCurrent.textContent = currentValue;
-			currentValue = "";
-			displayRunning.textContent = `${previousValue} ${currentOperator}`;
+			displayRunning.textContent = "Don't divide by zero.";
+			return;
 		}
+
+		// Update state
+		if (currentValue.slice(-1) === ".") currentValue += "0";
+		previousValue = currentValue;
+		currentOperator = operator;
+		displayCurrent.textContent = currentValue;
+		currentValue = "";
+		displayRunning.textContent = `${previousValue} ${currentOperator}`;
 	}
 }
 
-// Update displayed totals
+// Call operate() and update state
 function updateTotal() {
-	// Do nothing unless an operator has been staged
 	if (currentOperator) {
-		// Evaluate and re-cast as strings
 		currentValue = String(operate());
-
-		// Handle division by zero error by resetting
-		if (currentValue === "ERROR") {
+		if (currentValue === "ZeroDivisionError") {
 			allClear();
-		} else {
-			// Update global and displayed variables
-			previousValue = currentValue;
-			displayCurrent.textContent = currentValue;
-			currentValue = "";
-			displayRunning.textContent = "";
-			resetReady = true;
+			displayRunning.textContent = "Don't divide by zero.";
+			return;
 		}
+
+		// Update state
+		if (currentValue.slice(-1) === ".") currentValue += "0";
+		previousValue = currentValue;
+		displayCurrent.textContent = currentValue;
+		currentValue = "";
+		displayRunning.textContent = "";
+		resetReady = true;
 	}
 }
 
-// CNeedt input methods to values, display, and operate()
+// AddEventListeners
 numbers.forEach((button) =>
 	button.addEventListener("click", () => updateNumber(button.textContent))
 );
-
 operators.forEach((button) =>
 	button.addEventListener("click", () => updateOperator(button.textContent))
 );
-
+back.addEventListener("click", deleteNumber);
 clear.addEventListener("click", allClear);
-
+sign.addEventListener("click", switchSign);
 total.addEventListener("click", updateTotal);
