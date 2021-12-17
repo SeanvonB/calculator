@@ -74,11 +74,14 @@ function updateNumber(number) {
 	// Reset on new input if preceded by updateTotal
 	if (resetReady) allClear();
 
+	// Limit to 10 characters to prevent overflow
+	if (currentValue.replace(".", "").length >= 10) return;
+
 	if (currentValue === "0") currentValue = "";
 	if (currentValue === "-0") currentValue = "-";
 	if (number === ".") {
 		if (currentValue.includes(".")) return;
-		if (currentValue === "") currentValue += "0";
+		if (currentValue === "" || currentValue === "-") currentValue += "0";
 	}
 
 	currentValue += number;
@@ -99,6 +102,11 @@ function updateOperator(operator) {
 			return;
 		}
 
+		// Convert to scientific notation if result could overflow
+		if (currentValue.replace(".", "").length >= 10) {
+			currentValue = String(Number(currentValue).toExponential(3));
+		}
+
 		// Update state
 		if (currentValue.slice(-1) === ".") currentValue += "0";
 		previousValue = currentValue;
@@ -117,6 +125,11 @@ function updateTotal() {
 			allClear();
 			displayRunning.textContent = "Don't divide by zero.";
 			return;
+		}
+
+		// Convert to scientific notation if result could overflow
+		if (currentValue.replace(".", "").length >= 10) {
+			currentValue = String(Number(currentValue).toExponential(3));
 		}
 
 		// Update state
