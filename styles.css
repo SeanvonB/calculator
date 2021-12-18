@@ -25,10 +25,20 @@ body {
 	width: 100vw;
 }
 
+a {
+	color: var(--secondary);
+	padding: 0 5px;
+}
+
+a:active {
+	color: var(--accent);
+}
+
 button {
 	align-items: center;
 	background-color: var(--secondary);
 	border-radius: 15px;
+	box-sizing: border-box;
 	color: white;
 	display: flex;
 	font-size: 32px;
@@ -36,6 +46,7 @@ button {
 	height: calc(20% - 10px);
 	justify-content: center;
 	margin: 5px;
+	padding-bottom: 3px;
 	user-select: none; /* Force mobile to select display */
 	-moz-user-select: none;
 	-ms-user-select: none;
@@ -54,11 +65,16 @@ button.active {
 }
 
 footer {
+	display: flex;
+	margin: 10px 10px 15px;
+}
+
+footer,
+.credit {
 	align-items: center;
 	color: var(--secondary);
-	display: flex;
+	font-size: 16px;
 	font-weight: bold;
-	margin: 10px 10px 15px;
 	user-select: none; /* Force mobile to select display */
 	-moz-user-select: none;
 	-ms-user-select: none;
@@ -108,17 +124,9 @@ header {
 }
 
 .credit {
-	align-items: center;
-	color: var(--secondary);
 	display: none;
-	font-weight: bold;
 	height: calc(100% - 20px);
 	margin: 10px;
-	user-select: none; /* Force mobile to select display */
-	-moz-user-select: none;
-	-ms-user-select: none;
-	-webkit-touch-callout: none;
-	-webkit-user-select: none;
 }
 
 .current {
@@ -201,6 +209,10 @@ header {
 }
 
 @media (hover: hover) {
+	a:hover {
+		color: var(--accent);
+	}
+
 	button:hover {
 		background-image: linear-gradient(rgba(255, 255, 255, 0.1) 0 0);
 	}
@@ -252,6 +264,10 @@ header {
 @media screen and (max-height: 350px), (max-width: 350px) {
 	button {
 		font-size: 16px;
+	}
+
+	.back {
+		text-shadow: 0 0.5px;
 	}
 
 	.current {
