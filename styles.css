@@ -48,6 +48,11 @@ button:active {
 	filter: brightness(110%);
 }
 
+/* Added and removed by script */
+button.active {
+	filter: brightness(125%);
+}
+
 footer {
 	color: var(--tertiary);
 	font-weight: bold;

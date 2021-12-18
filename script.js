@@ -54,6 +54,94 @@ function deleteNumber() {
 	displayCurrent.textContent = currentValue;
 }
 
+// Identify valid key inputs and apply them to appropriate buttons
+function keyBindings(e) {
+	switch (e.key) {
+		case "Delete":
+		case "Escape":
+			clear.click();
+			clear.classList.add("active");
+			break;
+		case "Backspace":
+			back.click();
+			back.classList.add("active");
+			break;
+		case "Divide":
+		case "/":
+			e.preventDefault(); // Prevent default Quick Find shortcut
+			operators[0].click();
+			operators[0].classList.add("active");
+			break;
+		case "Multiply":
+		case "*":
+			operators[1].click();
+			operators[1].classList.add("active");
+			break;
+		case "Subtract":
+		case "-":
+			operators[2].click();
+			operators[2].classList.add("active");
+			break;
+		case "Add":
+		case "+":
+			operators[3].click();
+			operators[3].classList.add("active");
+			break;
+		case "=":
+		case "Enter":
+			total.click();
+			total.classList.add("active");
+			break;
+		case "7":
+			numbers[0].click();
+			numbers[0].classList.add("active");
+			break;
+		case "8":
+			numbers[1].click();
+			numbers[1].classList.add("active");
+			break;
+		case "9":
+			numbers[2].click();
+			numbers[2].classList.add("active");
+			break;
+		case "4":
+			numbers[3].click();
+			numbers[3].classList.add("active");
+			break;
+		case "5":
+			numbers[4].click();
+			numbers[4].classList.add("active");
+			break;
+		case "6":
+			numbers[5].click();
+			numbers[5].classList.add("active");
+			break;
+		case "1":
+			numbers[6].click();
+			numbers[6].classList.add("active");
+			break;
+		case "2":
+			numbers[7].click();
+			numbers[7].classList.add("active");
+			break;
+		case "3":
+			numbers[8].click();
+			numbers[8].classList.add("active");
+			break;
+		case "0":
+			numbers[9].click();
+			numbers[9].classList.add("active");
+			break;
+		case ".":
+		case "Decimal":
+			numbers[10].click();
+			numbers[10].classList.add("active");
+			break;
+		default:
+			return;
+	}
+}
+
 // Round number to 3 decimal places
 function roundNumber(number) {
 	return Math.round((number + Number.EPSILON) * 1000) / 1000;
@@ -142,6 +230,12 @@ function updateTotal() {
 	}
 }
 
+// Remove active class to end keydown animation
+function removeActive() {
+	let active = document.querySelectorAll(".active");
+	active.forEach((element) => element.classList.remove("active"));
+}
+
 // AddEventListeners
 numbers.forEach((button) =>
 	button.addEventListener("click", () => updateNumber(button.textContent))
@@ -153,3 +247,5 @@ back.addEventListener("click", deleteNumber);
 clear.addEventListener("click", allClear);
 sign.addEventListener("click", switchSign);
 total.addEventListener("click", updateTotal);
+window.addEventListener("keydown", keyBindings);
+window.addEventListener("keyup", removeActive);
