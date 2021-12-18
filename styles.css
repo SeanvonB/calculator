@@ -1,10 +1,10 @@
 :root {
 	/* Color Palette */
+	--accent: #f90;
 	--background: #555;
 	--primary: #111;
 	--secondary: #333;
 	--tertiary: #777;
-	--accent: #f90;
 }
 
 * {
@@ -20,8 +20,8 @@ body {
 	display: flex;
 	height: 100vh;
 	justify-content: center;
-	max-width: 100%;
 	max-height: 100%;
+	max-width: 100%;
 	width: 100vw;
 }
 
@@ -41,7 +41,7 @@ button {
 	-ms-user-select: none;
 	-webkit-touch-callout: none;
 	-webkit-user-select: none;
-	width: calc(33.33% - 10px);
+	width: calc(25% - 10px);
 }
 
 button:active {
@@ -54,15 +54,25 @@ button.active {
 }
 
 footer {
-	color: var(--tertiary);
+	align-items: center;
+	color: var(--secondary);
+	display: flex;
 	font-weight: bold;
-	margin: 15px 0 5px;
-	text-align: center;
+	margin: 10px 10px 15px;
 	user-select: none; /* Force mobile to select display */
 	-moz-user-select: none;
 	-ms-user-select: none;
 	-webkit-touch-callout: none;
 	-webkit-user-select: none;
+}
+
+header {
+	align-items: flex-start;
+	box-sizing: border-box;
+	display: flex;
+	justify-content: space-between;
+	padding: 5px;
+	width: 100%;
 }
 
 .back {
@@ -77,24 +87,38 @@ footer {
 }
 
 .calculator {
-	align-content: flex-end;
+	align-items: center;
 	background-color: var(--primary);
-	border-style: solid;
-	border-width: 15px;
-	border-top-color: var(--tertiary);
+	border-bottom-color: var(--secondary);
 	border-left-color: var(--tertiary);
 	border-right-color: var(--secondary);
-	border-bottom-color: var(--secondary);
+	border-style: solid;
+	border-top-color: var(--tertiary);
+	border-width: 15px;
 	box-sizing: border-box;
 	display: flex;
-	flex-wrap: wrap;
+	flex-direction: column;
 	height: 100%;
-	justify-content: center;
+	justify-content: space-between;
 	max-height: 750px;
 	max-width: 500px;
-	padding: 15px;
+	padding: 10px;
 	touch-action: manipulation;
 	width: 100%;
+}
+
+.credit {
+	align-items: center;
+	color: var(--secondary);
+	display: none;
+	font-weight: bold;
+	height: calc(100% - 20px);
+	margin: 10px;
+	user-select: none; /* Force mobile to select display */
+	-moz-user-select: none;
+	-ms-user-select: none;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
 }
 
 .current {
@@ -105,40 +129,34 @@ footer {
 .current,
 .running {
 	align-items: center;
-	justify-content: flex-end;
 	display: flex;
-	margin: 10px 0;
+	justify-content: flex-end;
 }
 
 .display {
+	box-sizing: border-box;
 	color: white;
 	font-weight: bold;
-	margin: 10px;
+	height: 72px;
+	padding: 5px;
 	text-align: right;
 	width: calc(100% - 20px);
 }
 
 .keypad {
+	box-sizing: border-box;
 	display: flex;
 	flex-wrap: wrap;
-	height: 70%;
-	width: 75%;
-}
-
-.operators {
-	display: flex;
-	flex-direction: column;
-	height: 70%;
-	width: 25%;
+	height: 60%;
+	padding: 5px 5px 10px;
+	width: 100%;
 }
 
 .operator,
 .total {
 	background-color: var(--accent);
 	font-size: 48px;
-	height: calc(20% - 10px);
 	padding-bottom: 10px;
-	width: calc(100% - 10px);
 }
 
 .running {
@@ -151,8 +169,35 @@ footer {
 	text-shadow: 0 1px;
 }
 
+.solar-cell {
+	background-color: #645;
+	border-radius: 3px;
+	border: 1px solid var(--tertiary);
+	box-sizing: border-box;
+	opacity: 75%;
+	padding-top: 25%;
+	width: 25%;
+}
+
+.solar-panel {
+	align-items: center;
+	background-color: var(--background);
+	border-bottom-color: var(--tertiary);
+	border-left-color: var(--secondary);
+	border-right-color: var(--tertiary);
+	border-style: solid;
+	border-top-color: var(--secondary);
+	border-width: 5px;
+	box-sizing: border-box;
+	display: flex;
+	justify-content: center;
+	max-width: 200px;
+	padding: 5px;
+	width: 40%;
+}
+
 .zero {
-	width: calc(66.66% - 10px);
+	width: calc(50% - 10px);
 }
 
 @media (hover: hover) {
@@ -161,21 +206,71 @@ footer {
 	}
 }
 
-@media screen and (max-height: 420px) {
+/* For landscape on mobile devices */
+@media screen and (max-height: 500px) {
 	button {
-		font-size: 24px;
+		font-size: 20px;
 	}
 
 	footer {
 		display: none;
 	}
 
+	.back {
+		text-shadow: 0 1px;
+	}
+
+	.current {
+		font-size: 40px;
+		height: 40px;
+	}
+
 	.calculator {
 		max-width: 740px; /* Magic number in 2021 */
 	}
 
+	.credit {
+		display: flex;
+	}
+
+	.display {
+		height: 64px;
+	}
+
+	.operator,
+	.total {
+		font-size: 28px;
+		padding-bottom: 5px;
+	}
+
+	.solar-panel {
+		max-width: 150px;
+	}
+}
+
+/* For ancient artifacts */
+@media screen and (max-height: 350px), (max-width: 350px) {
+	button {
+		font-size: 16px;
+	}
+
 	.current {
-		font-style: 40px;
-		height: 40px;
+		font-size: 36px;
+		height: 36px;
+	}
+
+	.operator,
+	.total {
+		font-size: 24px;
+		padding-bottom: 5px;
+	}
+
+	.running {
+		font-size: 20px;
+		height: 20px;
+	}
+
+	.solar-panel {
+		max-width: 100px;
 	}
 }
