@@ -1,5 +1,7 @@
 # Calculator
 
+<img src="example.png" alt="example of calculator" width="100%" height="auto" />
+
 [LIVE PREVIEW](https://seanvonb.github.io/calculator/)
 
 This web implementation of a standard pocket calculator helped reinforce my understanding of handling user input and maintaining a running device state. It displays and functions equally well on desktop and mobile.
@@ -8,8 +10,7 @@ This web implementation of a standard pocket calculator helped reinforce my unde
 
 -   Input numbers that are positive or negative, integer or decimal
 -   Compose equations in sequence by continuing to input operations
--   Clear state and backspace input
--   Interact with interface via cursor, touch, and keyboard
+-   Interact with the interface via cursor, touch, or keyboard
 
 ## Credits
 
@@ -18,4 +19,4 @@ This web implementation of a standard pocket calculator helped reinforce my unde
 ## License
 
 Copyright © 2021 Sean von Bayern  
-[MIT License](LICENSE.md)
+Licensed under the [MIT License](LICENSE.md)
